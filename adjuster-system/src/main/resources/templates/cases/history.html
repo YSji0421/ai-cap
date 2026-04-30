@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>사건 이력</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body>
+<nav class="navbar">
+    <a th:href="@{/dashboard}" class="navbar-brand">⚖️ 손해사정 시스템</a>
+</nav>
+<div class="container">
+    <h2>사건 이력 타임라인</h2>
+    <div class="timeline">
+        <div th:each="h : ${histories}" class="timeline-item">
+            <div class="timeline-time" th:text="${h.createdAt}"></div>
+            <div class="timeline-content">
+                <strong th:text="${h.actionType.displayName}"></strong>
+                <p th:text="${h.description}"></p>
+            </div>
+        </div>
+        <div th:if="${#lists.isEmpty(histories)}">
+            <p>이력이 없습니다.</p>
+        </div>
+    </div>
+    <a th:href="@{/cases/{id}(id=${caseId})}" class="btn btn-secondary">사건 상세로</a>
+</div>
+</body>
+</html>

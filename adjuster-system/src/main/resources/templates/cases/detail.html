@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::body-content})}">
+<body>
+<th:block th:fragment="body-content">
+
+<!-- 헤더 -->
+<div class="page-header">
+    <div>
+        <div class="page-title" th:text="${caseDetail.caseName}"></div>
+        <div class="page-subtitle">
+            <code th:text="${caseDetail.caseNumber}"></code>
+            &nbsp;·&nbsp;
+            <span th:text="${caseDetail.accidentTypeDisplay}"></span>
+            &nbsp;·&nbsp;
+            접수일 <span th:text="${#temporals.format(caseDetail.receivedDate,'yyyy-MM-dd')}"></span>
+        </div>
+    </div>
+    <div class="d-flex gap-8 align-center">
+        <!-- 상태 배지 -->
+        <span th:text="${caseDetail.statusDisplay}"
+              th:classappend="${caseDetail.status.name() == 'RECEIVED'    ? 'badge badge-received' :
+                               caseDetail.status.name() == 'IN_PROGRESS' ? 'badge badge-in-progress' :
+                               caseDetail.status.name() == 'COMPLETED'   ? 'badge badge-completed' :
+                                                                            'badge badge-on-hold'}">
+        </span>
+        <a th:href="@{/cases}" class="btn btn-secondary btn-sm">← 목록</a>
+    </div>
+</div>
+
+<!-- 상태 변경 -->
+<div class="card" style="padding: 14px 20px;">
+    <div class="d-flex align-center gap-16">
+        <span class="fw-600" style="font-size:13px;">상태 변경</span>
+        <form th:action="@{/cases/{id}/status(id=${caseDetail.id})}" method="post" class="status-form">
+            <select name="status" class="form-control"
+                    onchange="confirmStatusChange(this.form, this.value)">
+                <option value="RECEIVED"    th:selected="${caseDetail.status.name() == 'RECEIVED'}">접수</option>
+                <option value="IN_PROGRESS" th:selected="${caseDetail.status.name() == 'IN_PROGRESS'}">진행중</option>
+                <option value="COMPLETED"   th:selected="${caseDetail.status.name() == 'COMPLETED'}">완료</option>
+                <option value="ON_HOLD"     th:selected="${caseDetail.status.name() == 'ON_HOLD'}">보류</option>
+            </select>
+        </form>
+        <a th:href="@{/cases/{id}/history(id=${caseDetail.id})}" class="btn btn-outline btn-sm">📋 이력 조회</a>
+    </div>
+</div>
+
+<div class="grid-2">
+
+    <!-- 고객 정보 -->
+    <div class="detail-section">
+        <div class="detail-section-header">
+            <div class="detail-section-title">👤 고객 정보</div>
+            <a th:href="@{/cases/{id}/client/edit(id=${caseDetail.id})}"
+               class="btn btn-outline btn-sm"
+               th:text="${caseDetail.hasClient} ? '수정' : '입력'"></a>
+        </div>
+        <div class="detail-section-body">
+            <div th:if="${!caseDetail.hasClient}" class="table-empty" style="padding:20px 0;">
+                고객 정보가 없습니다.<br>
+                <a th:href="@{/cases/{id}/client/edit(id=${caseDetail.id})}">입력하러 가기</a>
+            </div>
+            <div th:if="${caseDetail.hasClient}" class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">고객명</div>
+                    <div class="info-value" th:text="${caseDetail.clientName}"></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">연락처</div>
+                    <div class="info-value" th:text="${caseDetail.clientPhone}"></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">보험사</div>
+                    <div class="info-value" th:text="${caseDetail.insurerName ?: '-'}"></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">사고일</div>
+                    <div class="info-value"
+                         th:text="${caseDetail.accidentDate != null ? #temporals.format(caseDetail.accidentDate,'yyyy-MM-dd') : '-'}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 보고서 -->
+    <div class="detail-section">
+        <div class="detail-section-header">
+            <div class="detail-section-title">📄 보고서</div>
+            <form th:action="@{/cases/{id}/reports/generate(id=${caseDetail.id})}" method="post">
+                <button type="submit" class="btn btn-primary btn-sm">초안 생성</button>
+            </form>
+        </div>
+        <div class="detail-section-body">
+            <div th:if="${caseDetail.reports.isEmpty()}" class="table-empty" style="padding:20px 0;">
+                보고서가 없습니다. 초안을 생성하세요.
+            </div>
+            <div th:each="r : ${caseDetail.reports}" class="d-flex justify-between align-center mb-8">
+                <div>
+                    <a th:href="@{/cases/{cid}/reports/{rid}(cid=${caseDetail.id},rid=${r.id})}"
+                       class="table-link" th:text="${r.title}"></a>
+                    <div class="text-muted" style="font-size:12px;"
+                         th:text="${#temporals.format(r.createdAt,'yyyy-MM-dd HH:mm')}"></div>
+                </div>
+                <span th:text="${r.statusDisplay}"
+                      th:classappend="${r.status.name() == 'FINAL'} ? 'badge badge-final' : 'badge badge-draft'">
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 상담 기록 -->
+<div class="detail-section">
+    <div class="detail-section-header">
+        <div class="detail-section-title">💬 상담 기록</div>
+        <a th:href="@{/cases/{id}/consultations/new(id=${caseDetail.id})}"
+           class="btn btn-primary btn-sm">+ 상담 추가</a>
+    </div>
+    <div class="detail-section-body" style="padding:0;">
+        <div th:if="${caseDetail.consultations.isEmpty()}" class="table-empty">
+            상담 기록이 없습니다.
+        </div>
+        <table th:unless="${caseDetail.consultations.isEmpty()}">
+            <thead>
+                <tr>
+                    <th>순번</th>
+                    <th>상담일시</th>
+                    <th>방법</th>
+                    <th>내용 미리보기</th>
+                    <th>AI요약</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="c : ${caseDetail.consultations}">
+                    <td th:text="${c.consultSeq} + '회'"></td>
+                    <td th:text="${#temporals.format(c.consultDatetime,'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${c.consultMethodDisplay}"></td>
+                    <td th:text="${c.contentPreview}" class="text-muted"></td>
+                    <td>
+                        <span th:if="${c.summaryGenerated}"
+                              style="color: #16a34a; font-weight:600; font-size:12px;">✔ 완료</span>
+                        <span th:unless="${c.summaryGenerated}"
+                              style="color: #94a3b8; font-size:12px;">미생성</span>
+                    </td>
+                    <td>
+                        <a th:href="@{/cases/{cid}/consultations/{id}(cid=${caseDetail.id},id=${c.id})}"
+                           class="btn btn-outline btn-sm">상세</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</th:block>
+</body>
+</html>

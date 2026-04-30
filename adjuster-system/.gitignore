@@ -1,0 +1,22 @@
+# 환경별 설정 파일 (DB 비밀번호 등 들어 있을 수 있음)
+# application-prod.yml 은 일반화된 프로덕션 프로필이라 commit 함 (시크릿은 환경변수로)
+src/main/resources/application-local.yml
+.env
+.env.local
+.env.*.local
+
+# 빌드 결과물
+build/
+.gradle/
+
+# IDE
+.idea/
+*.iml
+*.class
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

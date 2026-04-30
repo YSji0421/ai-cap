@@ -1,0 +1,21 @@
+/AI 보험 화상 상담 플랫폼 발표자료.pptx
+/screenshots
+/[팀 공유] AI 보험 화상 상담 플랫폼 - 프로젝트 현황.docx
+node_modules
+
+# build artifacts
+/build
+
+# Claude Code local config and worktrees
+/.claude
+
+# env files (실제 토큰이 들어 있어 절대 commit 금지)
+.env
+.env.local
+.env.*.local
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*

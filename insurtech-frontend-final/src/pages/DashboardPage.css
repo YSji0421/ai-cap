@@ -1,0 +1,79 @@
+.dashboard-page { min-height: 100vh; background: var(--color-teal); }
+.dashboard-nav {
+  background: var(--color-navy); padding: 16px 28px;
+  display: flex; justify-content: space-between; align-items: center;
+  box-shadow: 0 2px 8px rgba(31,58,95,0.15);
+}
+.dashboard-nav .nav-logo { color: white; font-size: 18px; font-weight: 800; letter-spacing: 0.3px; }
+.dashboard-nav .nav-right { display: flex; align-items: center; gap: 12px; }
+.dashboard-nav .role-badge { background: var(--color-primary); color: white; padding: 4px 14px; border-radius: var(--radius-pill); font-size: 12px; font-weight: 700; }
+.dashboard-nav .back-btn { background: rgba(255,255,255,0.15); color: white; border: none; padding: 8px 18px; border-radius: var(--radius-pill); cursor: pointer; font-size: 14px; font-weight: 600; }
+.dashboard-nav .back-btn:hover { background: rgba(255,255,255,0.25); }
+
+.dashboard-content { max-width: 1000px; margin: 0 auto; padding: 28px 24px; }
+
+.dashboard-header { margin-bottom: 24px; text-align: center; }
+.dashboard-header h1 {
+  font-size: 14px; font-weight: 700; color: white;
+  background: var(--color-navy);
+  padding: 10px 26px; border-radius: var(--radius-pill);
+  display: inline-block; margin-bottom: 12px; letter-spacing: 0.5px;
+}
+.dashboard-header p { color: var(--color-navy); font-size: 15px; font-weight: 500; }
+
+.dash-stat-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; counter-reset: dstat; }
+.dash-stat-card {
+  background: white; border-radius: 16px; padding: 22px 16px;
+  text-align: center; box-shadow: var(--shadow-card);
+  position: relative; border-top: 3px solid var(--color-primary);
+}
+.dash-stat-card::before {
+  counter-increment: dstat; content: counter(dstat);
+  position: absolute; top: 10px; right: 12px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--color-primary-soft); color: var(--color-primary);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+}
+.dash-stat-num { display: block; font-size: 24px; font-weight: 800; color: var(--color-navy); }
+.dash-stat-label { font-size: 12px; color: var(--color-muted); margin-top: 4px; display: block; font-weight: 500; }
+
+.dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.dash-card {
+  background: white; border-radius: 16px; padding: 24px;
+  box-shadow: var(--shadow-card);
+}
+.dash-card h3 {
+  font-size: 13px; font-weight: 700; color: white;
+  background: var(--color-navy);
+  padding: 8px 22px; border-radius: var(--radius-pill);
+  display: inline-block; margin: 0 0 18px; letter-spacing: 0.4px;
+}
+
+.bar-chart { display: flex; flex-direction: column; gap: 10px; }
+.bar-row { display: flex; align-items: center; gap: 10px; }
+.bar-label { width: 60px; font-size: 13px; color: var(--color-navy); font-weight: 600; text-align: right; flex-shrink: 0; }
+.bar-track { flex: 1; height: 24px; background: var(--color-teal-soft); border-radius: var(--radius-pill); overflow: hidden; }
+.bar-fill { height: 100%; border-radius: var(--radius-pill); min-width: 8px; transition: width 0.3s; }
+.bar-count { font-size: 13px; color: var(--color-muted); font-weight: 700; width: 40px; flex-shrink: 0; }
+
+.tone-bar-불안 { background: #7c3aed; }
+.tone-bar-차분 { background: var(--color-mint); }
+.tone-bar-불만 { background: var(--color-primary); }
+.tone-bar-적극적 { background: #0369a1; }
+
+.risk-bar-낮음 { background: var(--color-mint); }
+.risk-bar-보통 { background: #d97706; }
+.risk-bar-높음 { background: var(--color-primary); }
+
+.type-bar { background: var(--color-navy); }
+
+.keyword-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+.kw-chip {
+  background: var(--color-primary-soft); color: var(--color-primary); padding: 6px 14px; border-radius: var(--radius-pill);
+  font-size: 13px; font-weight: 600; border: 1px solid #ffc4c9;
+}
+.kw-chip.top { background: var(--color-primary); color: white; border-color: var(--color-primary); }
+.kw-chip small { opacity: 0.7; }
+
+.empty-dash { color: #94a3b8; font-size: 14px; text-align: center; padding: 20px 0; }

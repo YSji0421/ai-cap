@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::body-content})}">
+<body>
+<th:block th:fragment="body-content">
+
+<div class="page-header">
+    <div>
+        <div class="page-title">새 사건 등록</div>
+        <div class="page-subtitle">신규 사건을 접수합니다.</div>
+    </div>
+    <a th:href="@{/cases}" class="btn btn-secondary">← 목록으로</a>
+</div>
+
+<div class="card">
+    <form th:action="@{/cases}" method="post" th:object="${form}">
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">사건명 <span class="required">*</span></label>
+                <input type="text" th:field="*{caseName}" class="form-control"
+                       th:classappend="${#fields.hasErrors('caseName')} ? 'is-invalid'"
+                       placeholder="예) 홍길동 교통사고건" maxlength="100"/>
+                <div class="form-error" th:if="${#fields.hasErrors('caseName')}"
+                     th:errors="*{caseName}"></div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">사고유형 <span class="required">*</span></label>
+                <select th:field="*{accidentType}" class="form-control"
+                        th:classappend="${#fields.hasErrors('accidentType')} ? 'is-invalid'">
+                    <option value="">선택하세요</option>
+                    <option value="TRAFFIC">교통사고</option>
+                    <option value="INJURY">상해</option>
+                    <option value="FIRE">화재</option>
+                    <option value="OTHER">기타</option>
+                </select>
+                <div class="form-error" th:if="${#fields.hasErrors('accidentType')}"
+                     th:errors="*{accidentType}"></div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">접수일 <span class="required">*</span></label>
+                <input type="date" th:field="*{receivedDate}" class="form-control"
+                       th:classappend="${#fields.hasErrors('receivedDate')} ? 'is-invalid'"/>
+                <div class="form-error" th:if="${#fields.hasErrors('receivedDate')}"
+                     th:errors="*{receivedDate}"></div>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">메모 (선택)</label>
+            <textarea th:field="*{memo}" class="form-control"
+                      placeholder="사건 관련 초기 메모를 입력하세요." rows="3"></textarea>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-lg">저장</button>
+            <a th:href="@{/cases}" class="btn btn-secondary btn-lg">취소</a>
+        </div>
+    </form>
+</div>
+
+</th:block>
+</body>
+</html>

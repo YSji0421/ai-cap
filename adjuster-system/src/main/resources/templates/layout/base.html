@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${pageTitle != null ? pageTitle + ' - 손해사정 시스템' : '손해사정 시스템'}">손해사정 시스템</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<!-- 네비게이션 -->
+<nav class="navbar">
+    <div class="nav-brand">
+        <a th:href="@{/dashboard}">⚖️ 손해사정 시스템</a>
+    </div>
+    <div class="nav-links">
+        <a th:href="@{/dashboard}" th:classappend="${currentPage == 'dashboard'} ? 'active'">대시보드</a>
+        <a th:href="@{/cases}" th:classappend="${currentPage == 'cases'} ? 'active'">사건 목록</a>
+        <a th:href="@{/cases/new}">+ 새 사건</a>
+    </div>
+    <div class="nav-user">
+        <span sec:authentication="name">사용자</span>
+        <form th:action="@{/logout}" method="post" style="display:inline">
+            <button type="submit" class="btn-logout">로그아웃</button>
+        </form>
+    </div>
+</nav>
+
+<!-- 플래시 메시지 -->
+<div class="container">
+    <div th:if="${successMsg}" class="alert alert-success" th:text="${successMsg}"></div>
+    <div th:if="${errorMsg}" class="alert alert-error" th:text="${errorMsg}"></div>
+
+    <!-- 본문 -->
+    <div th:replace="${content}">본문 영역</div>
+</div>
+
+<script th:src="@{/js/ai-functions.js}"></script>
+</body>
+</html>

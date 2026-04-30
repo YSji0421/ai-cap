@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:adjusterdb;MODE=MySQL;NON_KEYWORDS=VALUE;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: false
+
+  sql:
+    init:
+      mode: always
+
+  thymeleaf:
+    cache: true
+
+server:
+  port: ${PORT:8080}
+  # cross-origin (Vercel ↔ Railway) 세션 쿠키가 동작하려면 SameSite=None; Secure 가 필수
+  servlet:
+    session:
+      cookie:
+        same-site: none
+        secure: true
+        http-only: true
+
+# CORS 허용 origin 은 환경변수로 override 가능
+# Railway 대시보드에서 CORS_ALLOWED_ORIGINS 를 설정하면 적용됨
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:https://insurtech-frontend-final.vercel.app,https://*.vercel.app}
+
+logging:
+  level:
+    com.adjuster: INFO
+    org.springframework.security: WARN

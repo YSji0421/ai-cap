@@ -1,0 +1,15 @@
+.git
+.gitignore
+.idea
+.vscode
+*.iml
+build/
+.gradle/
+*.log
+.DS_Store
+Thumbs.db
+src/main/resources/application-local.yml
+.env
+.env.local
+README.md
+HELP.md

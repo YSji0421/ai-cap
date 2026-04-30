@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::body-content})}">
+<body>
+<th:block th:fragment="body-content">
+
+<div class="page-header">
+    <div>
+        <div class="page-title">사건 목록</div>
+        <div class="page-subtitle" th:text="'총 ' + ${page.totalElements} + '건'"></div>
+    </div>
+    <a th:href="@{/cases/new}" class="btn btn-primary">+ 새 사건 등록</a>
+</div>
+
+<!-- 검색 바 -->
+<form th:action="@{/cases}" method="get" class="search-bar">
+    <select name="status" class="form-control">
+        <option value="">전체 상태</option>
+        <option value="RECEIVED"    th:selected="${status == 'RECEIVED'}">접수</option>
+        <option value="IN_PROGRESS" th:selected="${status == 'IN_PROGRESS'}">진행중</option>
+        <option value="COMPLETED"   th:selected="${status == 'COMPLETED'}">완료</option>
+        <option value="ON_HOLD"     th:selected="${status == 'ON_HOLD'}">보류</option>
+    </select>
+    <input type="text" name="keyword" class="form-control flex-1"
+           placeholder="사건명 또는 고객명 검색"
+           th:value="${keyword}"/>
+    <button type="submit" class="btn btn-primary">검색</button>
+    <a th:href="@{/cases}" class="btn btn-secondary">초기화</a>
+</form>
+
+<!-- 사건 테이블 -->
+<div class="card" style="padding:0; overflow:hidden;">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>사건번호</th>
+                    <th>사건명</th>
+                    <th>고객명</th>
+                    <th>사고유형</th>
+                    <th>접수일</th>
+                    <th>상태</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${page.content.isEmpty()}">
+                    <td colspan="6" class="table-empty">
+                        <div th:if="${keyword != null and !keyword.isEmpty()}">
+                            조건에 맞는 사건이 없습니다.
+                        </div>
+                        <div th:unless="${keyword != null and !keyword.isEmpty()}">
+                            등록된 사건이 없습니다.
+                            <a th:href="@{/cases/new}">새 사건을 등록해 보세요.</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr th:each="c : ${page.content}"
+                    th:onclick="|location.href='@{/cases/{id}(id=${c.id})}'|"
+                    style="cursor:pointer;">
+                    <td><code th:text="${c.caseNumber}"></code></td>
+                    <td>
+                        <a th:href="@{/cases/{id}(id=${c.id})}"
+                           class="table-link" th:text="${c.caseName}"></a>
+                    </td>
+                    <td th:text="${c.clientName}"></td>
+                    <td th:text="${c.accidentTypeDisplay}"></td>
+                    <td th:text="${#temporals.format(c.receivedDate, 'yyyy-MM-dd')}"></td>
+                    <td>
+                        <span th:text="${c.statusDisplay}"
+                              th:classappend="${c.status.name() == 'RECEIVED'    ? 'badge badge-received' :
+                                               c.status.name() == 'IN_PROGRESS' ? 'badge badge-in-progress' :
+                                               c.status.name() == 'COMPLETED'   ? 'badge badge-completed' :
+                                                                                   'badge badge-on-hold'}">
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 페이지네이션 -->
+<div class="pagination" th:if="${page.totalPages > 1}">
+    <a th:if="${!page.first}"
+       th:href="@{/cases(page=${page.number - 1}, keyword=${keyword}, status=${status})}"
+       class="page-btn">◀</a>
+    <a th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"
+       th:href="@{/cases(page=${i}, keyword=${keyword}, status=${status})}"
+       th:text="${i + 1}"
+       th:classappend="${i == page.number} ? ' active'"
+       class="page-btn"></a>
+    <a th:if="${!page.last}"
+       th:href="@{/cases(page=${page.number + 1}, keyword=${keyword}, status=${status})}"
+       class="page-btn">▶</a>
+</div>
+
+</th:block>
+</body>
+</html>

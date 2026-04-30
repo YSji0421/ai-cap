@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"><title>상담 기록 상세</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<script th:src="@{/js/ai-functions.js}" defer></script>
+</head>
+<body>
+<nav class="navbar">
+    <a th:href="@{/dashboard}" class="navbar-brand">⚖️ 손해사정 시스템</a>
+    <a th:href="@{/cases}">사건 목록</a>
+</nav>
+<div class="container">
+    <h2 th:text="${consultation.consultSeq} + '회차 상담 기록'"></h2>
+    <div class="card">
+        <p><strong>상담일시:</strong> <span th:text="${consultation.consultDatetime}"></span></p>
+        <p><strong>상담방법:</strong> <span th:text="${consultation.consultMethodDisplay}"></span></p>
+        <p><strong>상담내용:</strong></p>
+        <p th:text="${consultation.content}" style="white-space:pre-wrap;"></p>
+        <p th:if="${consultation.specialNote}"><strong>특이사항:</strong> <span th:text="${consultation.specialNote}"></span></p>
+    </div>
+    <div class="card">
+        <h3>AI 요약</h3>
+        <div id="summary-section">
+            <p id="summary-content" th:text="${consultation.summaryContent} ?: '아직 요약이 없습니다.'"></p>
+        </div>
+        <div id="manual-summary-section" style="display:none;">
+            <textarea id="manual-summary-input" rows="3" placeholder="요약을 직접 입력하세요..."></textarea>
+            <button th:onclick="'saveManualSummary(' + ${consultation.id} + ')'" class="btn btn-secondary">수동 요약 저장</button>
+        </div>
+        <button id="btn-summary" th:onclick="'generateSummary(' + ${consultation.id} + ')'" class="btn btn-primary">AI 요약 생성</button>
+    </div>
+    <div class="card">
+        <h3>키워드</h3>
+        <div id="keywords-container">
+            <span th:if="${consultation.keywords == null or consultation.keywords == ''}">키워드가 없습니다.</span>
+            <th:block th:if="${consultation.keywords != null and consultation.keywords != ''}">
+                <span th:each="kw : ${#strings.arraySplit(consultation.keywords, ',')}" class="badge" th:text="${kw.trim()}"></span>
+            </th:block>
+        </div>
+        <button id="btn-keywords" th:onclick="'extractKeywords(' + ${consultation.id} + ')'" class="btn btn-primary" style="margin-top:10px;">키워드 추출</button>
+    </div>
+    <a th:href="@{/cases/{id}/consultations/{cid}/edit(id=${caseId}, cid=${consultation.id})}" class="btn btn-secondary">수정</a>
+    <a th:href="@{/cases/{id}(id=${caseId})}" class="btn btn-secondary">목록으로</a>
+</div>
+</body>
+</html>

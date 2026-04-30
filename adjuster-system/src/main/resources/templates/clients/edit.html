@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>고객 정보 입력</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body>
+<nav class="navbar">
+    <a th:href="@{/dashboard}" class="navbar-brand">⚖️ 손해사정 시스템</a>
+</nav>
+<div class="container">
+    <h2>고객 정보 입력/수정</h2>
+    <form th:action="@{/cases/{id}/client(id=${caseId})}" method="post">
+        <div class="form-group">
+            <label>고객명 *</label>
+            <input type="text" name="clientName" th:value="${client?.clientName}" required>
+        </div>
+        <div class="form-group">
+            <label>생년월일</label>
+            <input type="date" name="birthDate" th:value="${client?.birthDate}">
+        </div>
+        <div class="form-group">
+            <label>연락처 * (예: 010-1234-5678)</label>
+            <input type="text" name="phone" th:value="${client?.phone}" required>
+        </div>
+        <div class="form-group">
+            <label>이메일</label>
+            <input type="email" name="email" th:value="${client?.email}">
+        </div>
+        <div class="form-group">
+            <label>보험사명</label>
+            <input type="text" name="insurerName" th:value="${client?.insurerName}">
+        </div>
+        <div class="form-group">
+            <label>증권번호</label>
+            <input type="text" name="policyNumber" th:value="${client?.policyNumber}">
+        </div>
+        <div class="form-group">
+            <label>사고일자</label>
+            <input type="date" name="accidentDate" th:value="${client?.accidentDate}">
+        </div>
+        <div class="form-group">
+            <label>부상 내용</label>
+            <textarea name="injuryContent" rows="3" th:text="${client?.injuryContent}"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">저장</button>
+        <a th:href="@{/cases/{id}(id=${caseId})}" class="btn btn-secondary">취소</a>
+    </form>
+</div>
+</body>
+</html>

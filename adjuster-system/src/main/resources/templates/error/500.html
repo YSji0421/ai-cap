@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>오류</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body>
+<div class="error-container">
+    <h1>500</h1>
+    <p th:text="${message} ?: '서버 내부 오류가 발생했습니다.'"></p>
+    <a th:href="@{/dashboard}">대시보드로 돌아가기</a>
+</div>
+</body>
+</html>

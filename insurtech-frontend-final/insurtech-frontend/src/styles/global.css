@@ -1,0 +1,61 @@
+:root {
+  --color-primary: #E63946;
+  --color-primary-dark: #C92B3A;
+  --color-primary-soft: #FDECEE;
+  --color-navy: #1F3A5F;
+  --color-navy-dark: #142847;
+  --color-teal: #B8DDDD;
+  --color-teal-soft: #DCEEEE;
+  --color-mint: #7FCBCB;
+  --color-text: #1a202c;
+  --color-muted: #64748b;
+  --color-line: #E2E8F0;
+  --radius-card: 16px;
+  --radius-pill: 999px;
+  --shadow-card: 0 4px 14px rgba(31, 58, 95, 0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Pretendard', 'Segoe UI', sans-serif;
+  background: var(--color-teal);
+  color: var(--color-text);
+}
+button { cursor: pointer; font-family: inherit; }
+a { text-decoration: none; }
+
+/* 공통 컴포넌트 */
+.btn-primary {
+  background: var(--color-primary); color: white; border: none;
+  padding: 12px 24px; border-radius: var(--radius-pill);
+  font-size: 15px; font-weight: 700;
+  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 4px 10px rgba(230, 57, 70, 0.25);
+}
+.btn-primary:hover { background: var(--color-primary-dark); transform: translateY(-1px); }
+.btn-danger {
+  background: var(--color-primary); color: white; border: none;
+  padding: 10px 20px; border-radius: var(--radius-pill);
+  font-size: 14px; font-weight: 700;
+}
+.btn-secondary {
+  background: white; color: var(--color-navy); border: 1.5px solid var(--color-line);
+  padding: 10px 20px; border-radius: var(--radius-pill); font-size: 14px; font-weight: 600;
+}
+.card {
+  background: white; border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card); padding: 24px;
+}
+
+/* 인포그래픽 풍 라벨 (네이비 라운드 헤더) */
+.section-label {
+  display: inline-block;
+  background: var(--color-navy);
+  color: white;
+  padding: 8px 22px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.section-label.red { background: var(--color-primary); }

@@ -1,0 +1,212 @@
+.emergency-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px 24px 80px;
+  min-height: 100vh;
+  background: var(--color-teal);
+}
+
+.emergency-header {
+  text-align: center;
+  padding: 28px 0 20px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.emergency-header h1 {
+  display: inline-block;
+  background: var(--color-primary);
+  color: white;
+  padding: 12px 32px;
+  border-radius: var(--radius-pill);
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  box-shadow: 0 6px 16px rgba(230,57,70,0.35);
+  letter-spacing: 0.5px;
+}
+
+.emergency-header p {
+  color: var(--color-navy);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.emergency-back {
+  position: absolute;
+  left: 0;
+  top: 28px;
+  background: white;
+  border: 1.5px solid var(--color-line);
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  color: var(--color-navy);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.emergency-section {
+  background: white;
+  border-radius: 18px;
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.emergency-section h2 {
+  display: inline-block;
+  font-size: 13px; font-weight: 700;
+  background: var(--color-navy);
+  color: white;
+  padding: 8px 22px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 14px;
+  letter-spacing: 0.4px;
+}
+
+.emergency-section h3 {
+  font-size: 15px;
+  margin-top: 18px;
+  margin-bottom: 8px;
+  color: var(--color-navy);
+  font-weight: 700;
+}
+
+/* 통화 섹션 */
+.call-section {
+  border-left: 6px solid var(--color-primary);
+}
+
+.call-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.call-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 22px 14px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+  transition: transform 0.1s, box-shadow 0.15s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+.call-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+}
+
+.call-btn:active {
+  transform: scale(0.97);
+}
+
+.call-icon { font-size: 32px; }
+.call-label { font-size: 22px; font-weight: 800; }
+.call-sub { font-size: 12px; opacity: 0.9; }
+
+.call-119 { background: var(--color-primary); color: white; }
+.call-112 { background: var(--color-navy); color: white; }
+.call-1339 { background: var(--color-mint); color: var(--color-navy); }
+.call-counselor { background: #f59e0b; color: white; }
+
+/* 알림 섹션 */
+.notify-section {
+  border-left: 6px solid #f59e0b;
+}
+
+.notify-desc {
+  color: var(--color-muted);
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.notify-btn {
+  width: 100%;
+  padding: 16px;
+  border-radius: var(--radius-pill);
+  border: none;
+  font-size: 16px;
+  font-weight: 700;
+  background: #f59e0b;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 4px 10px rgba(245,158,11,0.3);
+}
+
+.notify-btn:hover:not(:disabled) { background: #d97706; }
+.notify-btn:disabled { cursor: not-allowed; }
+.notify-sent { background: var(--color-mint) !important; color: var(--color-navy) !important; }
+.notify-error { background: var(--color-primary) !important; }
+
+.notify-result {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--color-navy);
+  flex-wrap: wrap;
+}
+
+.notify-result.notify-error {
+  color: var(--color-primary);
+}
+
+/* 가이드 */
+.guide-section { border-left: 6px solid var(--color-mint); }
+.guide-list, .help-list {
+  list-style: none;
+  padding: 0;
+}
+.guide-list li, .help-list li {
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--color-line);
+  font-size: 15px;
+  color: var(--color-navy);
+}
+.guide-list li:last-child, .help-list li:last-child { border-bottom: none; }
+.help-list a {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* 지도 */
+.map-section { border-left: 6px solid var(--color-navy); }
+.emergency-map-wrap { width: 100%; }
+.emergency-map-status {
+  font-size: 13px;
+  color: var(--color-muted);
+  margin-bottom: 8px;
+}
+
+/* 후속 보험 처리 */
+.followup-section { border-left: 6px solid var(--color-muted); }
+.followup-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: var(--color-navy);
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 14px;
+  box-shadow: 0 4px 10px rgba(31,58,95,0.25);
+}
+.followup-btn:hover { background: var(--color-navy-dark); }
+
+@media (max-width: 480px) {
+  .emergency-header h1 { font-size: 18px; padding: 10px 22px; }
+  .call-grid { grid-template-columns: 1fr; }
+  .emergency-back { position: static; margin-bottom: 12px; display: inline-block; }
+}

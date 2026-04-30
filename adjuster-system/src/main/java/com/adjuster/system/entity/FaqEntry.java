@@ -1,0 +1,52 @@
+package com.adjuster.system.entity;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "faq_entries")
+@EntityListeners(AuditingEntityListener.class)
+@Getter
+@Setter
+@NoArgsConstructor
+public class FaqEntry {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 20)
+    private String insuranceType;
+
+    @Column(length = 50)
+    private String category;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String question;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String answer;
+
+    @Column(length = 500)
+    private String keywords;
+
+    @Column(length = 500)
+    private String legalReference;
+
+    @Column
+    private int priority = 0;
+
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+}
