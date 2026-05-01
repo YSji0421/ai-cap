@@ -1,0 +1,123 @@
+/* ===== 공용: 안전교육 페이지 컨테이너/네비게이션 ===== */
+.edu-container { min-height: 100vh; background: var(--color-teal); }
+
+.edu-nav {
+  background: var(--color-navy); padding: 16px 32px;
+  display: flex; justify-content: space-between; align-items: center;
+  box-shadow: 0 2px 8px rgba(31,58,95,0.15);
+}
+.edu-nav-logo { font-size: 20px; font-weight: 800; color: white; letter-spacing: 0.3px; }
+.edu-nav-right { display: flex; align-items: center; gap: 12px; }
+.edu-nav-user { color: #cfd9e6; font-size: 14px; }
+.edu-role-badge {
+  background: var(--color-primary); color: white;
+  padding: 4px 14px; border-radius: var(--radius-pill);
+  font-size: 12px; font-weight: 700;
+}
+.edu-btn-back {
+  background: rgba(255,255,255,0.15); border: none; color: white;
+  padding: 8px 18px; border-radius: var(--radius-pill);
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  transition: background 0.15s;
+}
+.edu-btn-back:hover { background: rgba(255,255,255,0.25); }
+
+/* ===== 히어로 ===== */
+.edu-hero {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #F25965 100%);
+  padding: 48px 32px 56px; text-align: center; color: white;
+  position: relative; overflow: hidden;
+}
+.edu-hero::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(circle at 80% 30%, rgba(255,255,255,0.18), transparent 40%);
+  pointer-events: none;
+}
+.edu-hero h1 {
+  font-size: 30px; font-weight: 800; margin-bottom: 10px;
+  position: relative;
+}
+.edu-hero p { font-size: 15px; color: #ffe5e7; position: relative; }
+
+/* ===== 컨텐츠 영역 ===== */
+.edu-content {
+  max-width: 1200px;
+  margin: -24px auto 48px;
+  padding: 0 32px;
+  position: relative;
+  z-index: 2;
+}
+
+.edu-intro {
+  background: white;
+  border-radius: 18px;
+  padding: 22px 28px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-card);
+  border-left: 6px solid var(--color-primary);
+}
+.edu-intro-title {
+  font-size: 15px; font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: 6px;
+}
+.edu-intro p {
+  font-size: 14px; color: var(--color-navy);
+  line-height: 1.7;
+}
+
+/* ===== 시나리오 카드 그리드 ===== */
+.edu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.edu-card {
+  background: white;
+  border-radius: 18px;
+  padding: 28px 24px;
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  display: flex; flex-direction: column;
+  gap: 12px;
+  border: 2px solid transparent;
+  outline: none;
+}
+.edu-card:hover, .edu-card:focus {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(31,58,95,0.18);
+  border-color: var(--color-primary-soft);
+}
+.edu-card-emoji { font-size: 44px; line-height: 1; }
+.edu-card-title {
+  font-size: 18px; font-weight: 800;
+  color: var(--color-navy);
+}
+.edu-card-summary {
+  font-size: 14px;
+  color: #5a6a7e;
+  flex: 1;
+  line-height: 1.6;
+}
+.edu-card-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 14px; border-top: 1px solid #eef0f3;
+}
+.edu-card-meta {
+  font-size: 12px; font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.edu-card-cta {
+  font-size: 14px; font-weight: 700;
+  color: var(--color-primary);
+}
+.edu-card:hover .edu-card-cta { color: var(--color-primary-dark); }
+
+@media (max-width: 640px) {
+  .edu-content { padding: 0 16px; }
+  .edu-hero { padding: 36px 24px 44px; }
+  .edu-hero h1 { font-size: 24px; }
+}

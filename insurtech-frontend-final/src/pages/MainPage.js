@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { sessionApi, authApi } from '../services/api';
+import { sessionApi } from '../services/api';
 import './MainPage.css';
 
 export default function MainPage() {
@@ -43,12 +43,6 @@ export default function MainPage() {
     navigate('/device-check');
   };
 
-  const logout = async () => {
-    try { await authApi.logout(); } catch (e) { /* ignore */ }
-    localStorage.removeItem('user');
-    navigate('/login');
-  };
-
   return (
     <div className="main-container">
       <nav className="main-nav">
@@ -57,7 +51,6 @@ export default function MainPage() {
           {user?.roleLabel && <span className="role-badge">{user.roleLabel}</span>}
           <span className="nav-user">👤 {user?.name}님</span>
           <button onClick={() => navigate('/dashboard')} className="btn-dashboard">📊 대시보드</button>
-          <button onClick={logout} className="btn-logout">로그아웃</button>
         </div>
       </nav>
 
@@ -109,6 +102,13 @@ export default function MainPage() {
               <div>
                 <strong>예약 관리</strong>
                 <p>예약 확인/취소/관리</p>
+              </div>
+            </div>
+            <div className="action-card education" onClick={() => navigate('/education')}>
+              <span className="action-icon">🎓</span>
+              <div>
+                <strong>안전교육 체험</strong>
+                <p>위기 상황 시나리오로 안전한 판단 연습</p>
               </div>
             </div>
           </div>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -20,10 +19,7 @@
         <a th:href="@{/cases/new}">+ 새 사건</a>
     </div>
     <div class="nav-user">
-        <span sec:authentication="name">사용자</span>
-        <form th:action="@{/logout}" method="post" style="display:inline">
-            <button type="submit" class="btn-logout">로그아웃</button>
-        </form>
+        <span>👤 데모 사용자</span>
     </div>
 </nav>
 

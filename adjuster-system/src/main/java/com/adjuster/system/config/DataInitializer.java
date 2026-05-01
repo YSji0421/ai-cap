@@ -5,6 +5,7 @@ import com.adjuster.system.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,6 +13,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class DataInitializer implements CommandLineRunner {
 
+    public static final String DEMO_EMAIL = "demo@adjuster.com";
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
     private final FaqEntryRepository faqRepository;
     private final LegalClauseRepository clauseRepository;
     private final InsuranceProductRepository productRepository;
@@ -19,6 +24,15 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        if (userRepository.findByEmail(DEMO_EMAIL).isEmpty()) {
+            User demo = new User();
+            demo.setEmail(DEMO_EMAIL);
+            demo.setPassword(passwordEncoder.encode("demo"));
+            demo.setName("데모 사용자");
+            demo.setRole("ADJUSTER");
+            userRepository.save(demo);
+            log.info("데모 사용자 생성 완료: {}", DEMO_EMAIL);
+        }
         if (faqRepository.count() == 0) {
             initFaqData();
             log.info("FAQ 데이터 초기화 완료: {}건", faqRepository.count());

@@ -1,0 +1,345 @@
+/* ===== 시나리오 플레이어 레이아웃 ===== */
+.edu-player-wrap {
+  max-width: 860px;
+  margin: 32px auto 48px;
+  padding: 0 32px;
+}
+
+.edu-player-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.edu-player-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--color-navy);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.edu-player-emoji { font-size: 32px; }
+.edu-stage-indicator {
+  font-size: 14px;
+  color: var(--color-navy);
+  font-weight: 600;
+  background: white;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-card);
+}
+.edu-stage-indicator strong { color: var(--color-primary); font-weight: 800; }
+
+.edu-progress-bar {
+  height: 8px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 100px;
+  overflow: hidden;
+  margin-bottom: 22px;
+  box-shadow: inset 0 1px 2px rgba(31,58,95,0.05);
+}
+.edu-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), #F8A06B);
+  transition: width 0.4s ease;
+  border-radius: 100px;
+}
+
+/* ===== 상황 카드 ===== */
+.edu-situation-card {
+  background: white;
+  border-left: 5px solid var(--color-primary);
+  border-radius: 14px;
+  padding: 20px 26px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 18px;
+}
+.edu-situation-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+.edu-situation-text {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-navy);
+  white-space: pre-wrap;
+}
+
+/* ===== 선택지 ===== */
+.edu-choices-card {
+  background: white;
+  border-radius: 14px;
+  padding: 20px 26px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 18px;
+}
+.edu-choices-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--color-navy);
+  margin-bottom: 14px;
+}
+
+.edu-choice-btn {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
+  background: white;
+  border: 1.5px solid #e5eaf0;
+  border-radius: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--color-navy);
+  line-height: 1.5;
+  margin-bottom: 10px;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.edu-choice-btn:last-child { margin-bottom: 0; }
+.edu-choice-btn:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  transform: translateX(2px);
+}
+.edu-choice-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+.edu-choice-btn.correct {
+  border-color: #16a34a;
+  background: #dcfce7;
+  color: #15803d;
+  opacity: 1;
+}
+.edu-choice-btn.wrong {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+  opacity: 1;
+}
+.edu-choice-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-weight: 800;
+  font-size: 13px;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+.edu-choice-btn.correct .edu-choice-label {
+  background: #16a34a;
+  color: white;
+}
+.edu-choice-btn.wrong .edu-choice-label {
+  background: var(--color-primary);
+  color: white;
+}
+.edu-choice-text { flex: 1; padding-top: 4px; }
+
+/* ===== 피드백 박스 ===== */
+.edu-feedback-box {
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin-bottom: 18px;
+  border: 1.5px solid;
+  animation: fadeInUp 0.25s ease;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.edu-feedback-box.correct {
+  background: #dcfce7;
+  border-color: #86efac;
+}
+.edu-feedback-box.wrong {
+  background: var(--color-primary-soft);
+  border-color: #fca5a5;
+}
+.edu-feedback-header {
+  font-weight: 800;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+.edu-feedback-box.correct .edu-feedback-header { color: #15803d; }
+.edu-feedback-box.wrong .edu-feedback-header { color: var(--color-primary-dark); }
+.edu-feedback-body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-navy);
+}
+
+/* ===== 액션 버튼들 ===== */
+.edu-action-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.edu-btn-primary {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 11px 24px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+  font-family: inherit;
+}
+.edu-btn-primary:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+.edu-btn-outline {
+  background: white;
+  color: var(--color-navy);
+  border: 1.5px solid #e5eaf0;
+  padding: 11px 24px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.edu-btn-outline:hover {
+  background: #f8fafc;
+  border-color: var(--color-navy);
+}
+
+/* ===== 결과 화면 ===== */
+.edu-result-card {
+  background: white;
+  border-radius: 20px;
+  padding: 36px 32px;
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+.edu-result-emoji { font-size: 64px; margin-bottom: 12px; line-height: 1; }
+.edu-result-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--color-navy);
+  margin-bottom: 8px;
+}
+.edu-result-subtitle {
+  font-size: 15px;
+  color: #5a6a7e;
+  margin-bottom: 28px;
+}
+
+.edu-result-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.edu-stat-box {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 18px 12px;
+  border: 1px solid #eef0f3;
+}
+.edu-stat-num {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-navy);
+  line-height: 1.1;
+}
+.edu-stat-num.good { color: #16a34a; }
+.edu-stat-num.warn { color: #d97706; }
+.edu-stat-label {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+.edu-summary-list {
+  text-align: left;
+  margin-bottom: 28px;
+}
+.edu-summary-item {
+  border-left: 4px solid #16a34a;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  background: #f8fafc;
+  border-radius: 0 12px 12px 0;
+}
+.edu-summary-item.imperfect { border-left-color: #d97706; }
+.edu-summary-meta {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.edu-summary-answer {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-navy);
+  margin-bottom: 4px;
+}
+.edu-summary-feedback {
+  font-size: 13px;
+  color: #5a6a7e;
+  line-height: 1.55;
+}
+
+.edu-result-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ===== Not Found ===== */
+.edu-not-found {
+  max-width: 500px;
+  margin: 80px auto;
+  padding: 0 24px;
+}
+.edu-not-found-card {
+  background: white;
+  border-radius: 20px;
+  padding: 48px 28px;
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+.edu-not-found-emoji { font-size: 56px; margin-bottom: 12px; }
+.edu-not-found-card h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-navy);
+  margin-bottom: 8px;
+}
+.edu-not-found-card p {
+  font-size: 14px;
+  color: #5a6a7e;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 640px) {
+  .edu-player-wrap { padding: 0 16px; margin: 20px auto 32px; }
+  .edu-player-title { font-size: 20px; }
+  .edu-result-stats { grid-template-columns: 1fr; }
+  .edu-result-card { padding: 28px 20px; }
+}
